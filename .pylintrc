@@ -1,0 +1,12 @@
+[MASTER]
+ignore=aws_libs
+
+#disable Unable to import
+#disable no-name-in-module
+disable=E0401, E0611
+max-line-length=120
+
+[SIMILARITIES]
+# Ignore imports when computing similarities.
+ignore-imports=yes
+min-similarity-lines=10

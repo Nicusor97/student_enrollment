@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+  studentenrollment-dev:
+    # Change port to use with sypmworker in two containers
+    ports:
+      - "${COMPONENT_PORT}:${COMPONENT_PORT}"
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE}.local
+      args:
+        FROM_REPO: ${COMPONENT_NAME}
+    image: ${COMPONENT_NAME}-dev
+    # Enable the next line and do docker-compose up --build + docker-compose exec${COMPONENT_NAME}-dev bash to run manually the tests.
+    #command: bash -c "sleep infinity"
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - my_net
+
+  studentenrollment-test:
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE}.test
+      args:
+        FROM_REPO: ${COMPONENT_NAME}-dev
+    depends_on:
+      - db
+      - test_redis
+      - ${COMPONENT_NAME}-dev
+    links:
+      - db
+    image: ${COMPONENT_NAME}-test
+    # Enable the next line and do docker-compose up --build + docker-compose exec${COMPONENT_NAME}-dev bash to run manually the tests.
+    #command: bash -c "sleep infinity"
+    environment:
+      no_proxy: "${COMPONENT_NAME}-dev"
+    networks:
+      - my_net
+
+  studentenrollment-codevalidation:
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE}.codevalidation
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: studentsenrollment
+    networks:
+      - my_net
+
+  # redis container to be used for tests only
+  # different port is used to not interfere with sypmworker's redis when running the worker locally
+  test_redis:
+    image: redis
+    command: redis-server --port 6378
+    ports:
+      - '6378:6378'
+    networks:
+      - my_net
+
+networks:
+  my_net:
+    driver: bridge
