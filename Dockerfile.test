@@ -1,0 +1,4 @@
+#FROM the orignal docker file get everything that already exist
+ARG FROM_REPO
+ARG FROM_TAG=latest
+FROM $FROM_REPO:$FROM_TAG
