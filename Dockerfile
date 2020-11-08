@@ -3,7 +3,6 @@ FROM python:3.8.3-slim-buster
 # Required Args
 ARG VERSION
 
-# MANDATORY - UBISERVICES.SHIPYARD PLATFORM SECTION - You should modify the values only!
 #
 ENV DOCKER_EXEC_COMMAND=python
 ENV DOCKER_EXEC_FILE=run.py
@@ -29,9 +28,6 @@ COPY student_enrollment ./student_enrollment
 
 ENV PYTHONPATH /opt/us-app
 
-#
-# MANDATORY - UBISERVICES.SHIPYARD PLATFORM SECTION - DO NOT CHANGE OR REMOVE
-#
 # Copy platform files
 COPY docker_student_enrollment ./
 # Right permissions

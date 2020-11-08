@@ -27,7 +27,7 @@ COPY wait-for.sh ./wait-for.sh
 ENV PYTHONPATH /opt/us-app
 
 # Copy platform files
-COPY student_enrollment ./
+COPY docker_student_enrollment ./
 # Right permissions
 RUN chmod a+x ./docker-cmd.sh ./wait-for.sh
 # Clean the sh files (remove \r)
