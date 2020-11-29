@@ -1,12 +1,12 @@
 version: '3.4'
 
 # services:
-#   sypm-dev:
-#     # Uncomment to use with sypmworker in two containers
+#   studentenrollment-dev:
+#     # Uncomment to use with studentenrollment worker in two containers
 #     # networks:
-#     #   - sypmworker_my_net
+#     #   - studentenrollment_my_net
 
-# # Uncomment to use with sypmworker in two containers
+# # Uncomment to use with studentenrollment in two containers
 # # networks:
-# #   sypmworker_my_net:
+# #   studentenrollment_my_net:
 # #     external: true

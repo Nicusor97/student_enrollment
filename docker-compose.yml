@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   studentenrollment-dev:
-    # Change port to use with sypmworker in two containers
+    # Change port to use with studentenrollment worker in two containers
     ports:
       - "${COMPONENT_PORT}:${COMPONENT_PORT}"
     build:
@@ -56,7 +56,7 @@ services:
       - my_net
 
   # redis container to be used for tests only
-  # different port is used to not interfere with sypmworker's redis when running the worker locally
+  # different port is used to not interfere with studentenrollment worker's redis when running the worker locally
   test_redis:
     image: redis
     command: redis-server --port 6378
