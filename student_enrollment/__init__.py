@@ -5,6 +5,7 @@ from celery import Celery
 from flask import Flask
 from flask_caching import Cache
 from flask_migrate import Migrate, upgrade
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -34,6 +35,7 @@ migrate = Migrate()
 cache = Cache()
 celery = Celery(__name__, broker=AppConfig.CELERY_BROKER_URL)
 celery.config_from_object(AppConfig)
+login_manager = LoginManager()
 
 
 def create_app(config_class=AppConfig):
@@ -43,6 +45,9 @@ def create_app(config_class=AppConfig):
     migrate.init_app(app, db)
     cache.init_app(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://' + broker_addr + "/1"})
     celery.conf.update(app.config)
+
+    login_manager.init_app(app)
+    login_manager.login_view = "login"
 
     # for dev and prod, the migrations are applied before deployment, no need to run this code
     with app.app_context():

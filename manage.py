@@ -16,7 +16,7 @@ from student_enrollment import create_app, db, AppConfig
 
 
 class LocalhostConfig(AppConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/sypm'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/studentsenrollment'
 
 
 # Import all models so that alembic can see them
